@@ -1,0 +1,6 @@
+{
+  "name": "Portfolio & Engineering Journal",
+  "description": "Showcase of digital product design, interactive computer science projects, and technical articles by an undergraduate CS student.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
