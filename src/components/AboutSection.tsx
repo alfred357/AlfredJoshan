@@ -1,65 +1,20 @@
-import React, { useRef, useState } from 'react';
-import { ArrowDown, ArrowUpRight, Upload, Camera, Trash2, Check, User, Download } from 'lucide-react';
+import React from 'react';
+import { ArrowDown, ArrowUpRight, Download } from 'lucide-react';
 import { downloadCVPdf } from '../utils/downloadCV';
 
 interface AboutSectionProps {
   onExploreProjects: () => void;
   onExploreBackground: () => void;
   onOpenContact: () => void;
-  onOpenCV?: () => void;
-  profilePhoto: string | null;
-  onUpdatePhoto: (dataUrl: string) => void;
-  onRemovePhoto: () => void;
+  profilePhoto: string;
 }
 
 export const AboutSection: React.FC<AboutSectionProps> = ({
   onExploreProjects,
   onExploreBackground,
   onOpenContact,
-  onOpenCV,
-  profilePhoto,
-  onUpdatePhoto,
-  onRemovePhoto
+  profilePhoto
 }) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      processFile(file);
-    }
-  };
-
-  const processFile = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (event.target?.result) {
-        onUpdatePhoto(event.target.result as string);
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file) {
-      processFile(file);
-    }
-  };
-
   return (
     <section id="about" className="relative pt-12 pb-20 md:pt-20 md:pb-28 border-b border-[#E4E4E7] overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
@@ -106,10 +61,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
               </button>
 
               <button
-                onClick={() => {
-                  downloadCVPdf();
-                  onOpenCV?.();
-                }}
+                onClick={downloadCVPdf}
                 className="px-5 py-2.5 text-sm font-semibold text-[#18181B] hover:text-[#000000] border border-[#E4E4E7] bg-white rounded-lg hover:border-[#18181B] shadow-xs transition-colors inline-flex items-center gap-2 cursor-pointer"
                 title="Download & View Alfred Joshan Richard's Curriculum Vitae"
               >
@@ -152,87 +104,22 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
 
           </div>
 
-          {/* Right Column: Visual Frame with Manual Photo Upload */}
+          {/* Right Column: Profile Photo */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="w-full max-w-[240px] sm:max-w-[260px] relative rounded-2xl overflow-hidden border border-[#E4E4E7] bg-[#F4F4F5] shadow-xs">
-              
-              {/* Hidden file input */}
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                accept="image/*"
-                className="hidden"
-              />
-
-              {/* Photo Area */}
-              {profilePhoto ? (
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#1E87F0] flex items-center justify-center group">
-                  <img
-                    src={profilePhoto}
-                    alt="Alfred Joshan Richard"
-                    className="w-full h-full object-cover object-top"
-                  />
-
-                  {/* Manual Controls Overlay */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-3">
-                    <button
-                      onClick={() => fileInputRef.current?.click()}
-                      className="px-3 py-1.5 bg-white text-[#18181B] text-xs font-semibold rounded-lg shadow-md hover:bg-neutral-100 transition-colors inline-flex items-center gap-1.5"
-                    >
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>Change Picture</span>
-                    </button>
-
-                    <button
-                      onClick={onRemovePhoto}
-                      className="px-3 py-1.5 bg-red-600 text-white text-xs font-semibold rounded-lg shadow-md hover:bg-red-700 transition-colors inline-flex items-center gap-1.5"
-                      title="Remove picture"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                      <span>Remove</span>
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                /* Empty / Ready for manual upload dropzone (compact scale) */
-                <div
-                  onDragOver={handleDragOver}
-                  onDragLeave={handleDragLeave}
-                  onDrop={handleDrop}
-                  onClick={() => fileInputRef.current?.click()}
-                  className={`aspect-[3/4] border-2 border-dashed rounded-t-2xl p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
-                    isDragging 
-                      ? 'border-[#2563EB] bg-blue-50/50' 
-                      : 'border-[#D4D4D8] bg-[#FAFAFA] hover:border-[#18181B] hover:bg-[#F4F4F5]'
-                  }`}
-                >
-                  <div className="w-12 h-12 rounded-full bg-white border border-[#E4E4E7] shadow-xs flex items-center justify-center text-[#71717A] mb-3">
-                    <Camera className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-display text-xs font-bold text-[#18181B] mb-1">
-                    Add Your Picture
-                  </h3>
-                  <p className="text-[11px] text-[#71717A] max-w-[170px] mb-3">
-                    Click to select <span className="font-mono text-[#18181B]">cvprofile.jpg</span>
-                  </p>
-                  <span className="px-2.5 py-1.5 bg-[#18181B] hover:bg-[#27272A] text-white text-[11px] font-semibold rounded-lg transition-colors inline-flex items-center gap-1">
-                    <Upload className="w-3 h-3" />
-                    <span>Upload Picture</span>
-                  </span>
-                </div>
-              )}
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#1E87F0] flex items-center justify-center">
+                <img
+                  src={profilePhoto}
+                  alt="Alfred Joshan Richard"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
 
               {/* Verified Student ID badge */}
               <div className="p-3 bg-white/95 backdrop-blur-xs border-t border-[#E4E4E7] space-y-1">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
                     <p className="text-xs font-semibold text-[#18181B] truncate max-w-[130px]">Alfred J. Richard</p>
-                    {profilePhoto && (
-                      <span className="text-[10px] font-mono text-emerald-600 flex items-center gap-0.5" title="Photo active">
-                        <Check className="w-3 h-3" />
-                      </span>
-                    )}
                   </div>
                   <span className="text-[10px] font-mono text-[#2563EB] font-medium">NIM: 2802454846</span>
                 </div>

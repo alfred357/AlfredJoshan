@@ -13,11 +13,7 @@ import {
 } from 'lucide-react';
 import { downloadCVPdf } from '../utils/downloadCV';
 
-interface ContactSectionProps {
-  onOpenCV?: () => void;
-}
-
-export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCV }) => {
+export const ContactSection: React.FC = () => {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const contactDetails = {
@@ -217,10 +213,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenCV }) => {
           </a>
 
           <button
-            onClick={() => {
-              downloadCVPdf();
-              onOpenCV?.();
-            }}
+            onClick={downloadCVPdf}
             className="p-4 bg-white border border-[#E4E4E7] rounded-xl hover:border-[#2563EB] hover:shadow-xs transition-colors flex items-center justify-between group text-left cursor-pointer"
             title="Download & View Alfred Joshan Richard's Curriculum Vitae"
           >

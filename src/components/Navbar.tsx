@@ -4,11 +4,10 @@ import { downloadCVPdf } from '../utils/downloadCV';
 
 interface NavbarProps {
   onOpenContact: () => void;
-  onOpenCV: () => void;
-  profilePhoto: string | null;
+  profilePhoto: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, onOpenCV, profilePhoto }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, profilePhoto }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Exactly the 4 requested sections: About, Project, Background, Contact
@@ -27,17 +26,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, onOpenCV, profile
           href="#about" 
           className="flex items-center gap-3 group"
         >
-          {profilePhoto ? (
-            <img
-              src={profilePhoto}
-              alt="Alfred Joshan Richard"
-              className="w-9 h-9 rounded-full object-cover object-top border border-[#E4E4E7] shadow-xs group-hover:border-[#18181B] transition-colors"
-            />
-          ) : (
-            <div className="w-9 h-9 rounded-full bg-[#18181B] text-white flex items-center justify-center text-xs font-mono font-bold shadow-xs">
-              AR
-            </div>
-          )}
+          <img
+            src={profilePhoto}
+            alt="Alfred Joshan Richard"
+            className="w-9 h-9 rounded-full object-cover object-top border border-[#E4E4E7] shadow-xs group-hover:border-[#18181B] transition-colors"
+          />
           <span className="font-display text-lg sm:text-xl font-bold tracking-tight text-[#18181B] group-hover:opacity-80 transition-opacity">
             Alfred Joshan Richard
           </span>
@@ -59,10 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, onOpenCV, profile
         {/* Zone 3: Primary action - Download CV & Get in Touch */}
         <div className="flex items-center gap-2.5">
           <button
-            onClick={() => {
-              downloadCVPdf();
-              onOpenCV();
-            }}
+            onClick={downloadCVPdf}
             className="px-3.5 py-2 text-xs font-semibold text-[#18181B] hover:text-[#000000] border border-[#E4E4E7] bg-white rounded-lg hover:border-[#18181B] shadow-xs transition-colors whitespace-nowrap inline-flex items-center gap-1.5 cursor-pointer"
             title="Download & View Alfred Joshan Richard's Curriculum Vitae"
           >
@@ -107,7 +97,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, onOpenCV, profile
             onClick={() => {
               setMobileMenuOpen(false);
               downloadCVPdf();
-              onOpenCV();
             }}
             className="text-left text-xs font-semibold text-[#18181B] py-1 inline-flex items-center gap-1.5 cursor-pointer"
           >

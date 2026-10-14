@@ -12,41 +12,11 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { BackgroundSection } from './components/BackgroundSection';
 import { ContactSection } from './components/ContactSection';
 import { ProjectModal } from './components/ProjectModal';
-import { CVModal } from './components/CVModal';
 import { Footer } from './components/Footer';
-
-const PHOTO_STORAGE_KEY = 'alfred_custom_photo_v1';
+import profilePhoto from './assets/images/cvprofile.jpg';
 
 export default function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isCVModalOpen, setIsCVModalOpen] = useState(false);
-
-  // Manual photo state stored in localStorage
-  const [profilePhoto, setProfilePhoto] = useState<string | null>(() => {
-    try {
-      return localStorage.getItem(PHOTO_STORAGE_KEY);
-    } catch {
-      return null;
-    }
-  });
-
-  const handleUpdatePhoto = (dataUrl: string) => {
-    setProfilePhoto(dataUrl);
-    try {
-      localStorage.setItem(PHOTO_STORAGE_KEY, dataUrl);
-    } catch {
-      // ignore storage quota issues
-    }
-  };
-
-  const handleRemovePhoto = () => {
-    setProfilePhoto(null);
-    try {
-      localStorage.removeItem(PHOTO_STORAGE_KEY);
-    } catch {
-      // ignore
-    }
-  };
 
   const scrollToContact = () => {
     const el = document.getElementById('contact');
@@ -74,7 +44,6 @@ export default function App() {
       {/* Navigation Top Bar */}
       <Navbar 
         onOpenContact={scrollToContact} 
-        onOpenCV={() => setIsCVModalOpen(true)}
         profilePhoto={profilePhoto}
       />
 
@@ -85,10 +54,7 @@ export default function App() {
           onExploreProjects={scrollToProjects}
           onExploreBackground={scrollToBackground}
           onOpenContact={scrollToContact}
-          onOpenCV={() => setIsCVModalOpen(true)}
           profilePhoto={profilePhoto}
-          onUpdatePhoto={handleUpdatePhoto}
-          onRemovePhoto={handleRemovePhoto}
         />
 
         {/* 2. Project Section */}
@@ -98,14 +64,14 @@ export default function App() {
         />
 
         {/* 3. Background Section */}
-        <BackgroundSection onOpenCV={() => setIsCVModalOpen(true)} />
+        <BackgroundSection />
 
         {/* 4. Contact Section */}
-        <ContactSection onOpenCV={() => setIsCVModalOpen(true)} />
+        <ContactSection />
       </main>
 
       {/* Footer */}
-      <Footer onOpenCV={() => setIsCVModalOpen(true)} />
+      <Footer />
 
       {/* Full Project Modal */}
       <ProjectModal
@@ -113,12 +79,6 @@ export default function App() {
         onClose={() => setSelectedProject(null)}
       />
 
-      {/* Official Curriculum Vitae Modal */}
-      <CVModal
-        isOpen={isCVModalOpen}
-        onClose={() => setIsCVModalOpen(false)}
-        profilePhoto={profilePhoto}
-      />
     </div>
   );
 }

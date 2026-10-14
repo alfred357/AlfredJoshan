@@ -2,11 +2,7 @@ import React from 'react';
 import { ArrowUp } from 'lucide-react';
 import { downloadCVPdf } from '../utils/downloadCV';
 
-interface FooterProps {
-  onOpenCV?: () => void;
-}
-
-export const Footer: React.FC<FooterProps> = ({ onOpenCV }) => {
+export const Footer: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -29,10 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCV }) => {
           <a href="#background" className="hover:text-[#18181B] transition-colors">Background</a>
           <a href="#contact" className="hover:text-[#18181B] transition-colors">Contact</a>
           <button
-            onClick={() => {
-              downloadCVPdf();
-              onOpenCV?.();
-            }}
+            onClick={downloadCVPdf}
             className="hover:text-[#18181B] transition-colors cursor-pointer text-[#2563EB] font-medium"
           >
             Download CV
