@@ -1,4 +1,7 @@
 import { Project } from '../types';
+import daytourityCover from '../assets/images/halaman-login (1).png';
+import honkaiStarRetailCover from '../assets/images/honkai-star-retail-login.png';
+import kelapaWebCover from '../assets/images/Screenshot 2026-10-14 110120.png';
 
 export const PROJECTS: Project[] = [
   {
@@ -18,7 +21,7 @@ export const PROJECTS: Project[] = [
       { label: 'Relational Entities', value: '14 Models' },
       { label: 'Codebase', value: 'GitHub Open' }
     ],
-    coverImage: '/src/assets/images/honkai_star_retail_1791108640973.jpg',
+    coverImage: honkaiStarRetailCover,
     tags: ['Backend', 'REST API', 'Database Schema', 'Authentication', 'E-Commerce', 'Microservices'],
     githubUrl: 'https://github.com/alfred357/Honkai_Star_Retail',
     gitStatus: 'Repository active on GitHub',
@@ -67,7 +70,7 @@ export const PROJECTS: Project[] = [
       { label: 'Accessibility Score', value: '98/100' },
       { label: 'Git Repository', value: 'alfred357' }
     ],
-    coverImage: '/src/assets/images/daytourity_travel_1791108653884.jpg',
+    coverImage: daytourityCover,
     tags: ['Full-Stack', 'UI/UX Design', 'Travel Tech', 'Mobile-First', 'Itinerary Planner'],
     githubUrl: 'https://github.com/alfred357/Daytourity',
     gitStatus: 'Repository active on GitHub',
@@ -115,7 +118,7 @@ export const PROJECTS: Project[] = [
       { label: 'Mobile Responsive', value: '100%' },
       { label: 'Git Repository', value: 'joshanrichard230' }
     ],
-    coverImage: '/src/assets/images/kelapaweb_platform_1791108665728.jpg',
+    coverImage: kelapaWebCover,
     tags: ['Web Platform', 'Full-Stack', 'E-Commerce', 'B2B Procurement', 'Agro-Tech', 'Swiss Design'],
     githubUrl: 'https://github.com/joshanrichard230-pixel/Kelapaweb',
     gitStatus: 'Repository active on GitHub',
